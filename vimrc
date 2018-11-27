@@ -46,7 +46,9 @@ set foldcolumn=2
 ""colorscheme molokai  "设置配色方案
 ""colorscheme corporation
 colorscheme   delek
-"字体
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""字体
+""""""""""""""""""""""""""""""""''""""""""""""""""""""""""""""""""
 "if (has("gui_running"))
 "   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 "endif
@@ -57,11 +59,19 @@ set encoding=utf-8
 ""set fileencodings=ucs-bom,utf-8,cp936
 ""set fileencoding=utf-8
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""共享剪切板"""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vmap "+y :w !pbcopy<CR><CR>  
+nmap "+p :r !pbpaste<CR><CR> 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""新文件标题"""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头
 ""autocmd BufNewFile *.c,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java ks|call SetTitle()|'s
+autocmd BufNewFile  *.cpp,*.[ch],*.sh,*.java ks|call SetTitle()|'s
 ""定义函数SetTitle，自动插入文件头c
 func SetTitle()
     "如果文件类型为.sh文件
@@ -69,7 +79,8 @@ func SetTitle()
         call setline(1,"\#########################################################################")
         call append(line("."), "\# File Name: ".expand("%"))
         call append(line(".")+1, "\# Author: linhaidong")
-        call append(line(".")+2, "\# Mail:   linhaidong@alibaba-inc.com")
+        """call append(line(".")+2, "\# Mail:   linhaidong@alibaba-inc.com")
+        call append(line(".")+2, "\# Mail:   linengier@126.com")
         call append(line(".")+3, "\# Time:  ".strftime("%c"))
         call append(line(".")+4, "\# Abstract: ")
         call append(line(".")+5, "\#########################################################################")
@@ -79,7 +90,8 @@ func SetTitle()
         call setline(1, "\/*************************************************************************")
         call append(line("."), "    > File Name: ".expand("%"))
         call append(line(".")+1, "    > Author:     linhaidong")
-        call append(line(".")+2, "    > Mail:       linhaidong@alibaba-inc.com ")
+        ""call append(line(".")+2, "    > Mail:       linhaidong@alibaba-inc.com ")
+        call append(line(".")+2, "    > Mail:       linengier@126.com")
         call append(line(".")+3, "    > Time:      ".strftime("%c"))
         call append(line(".")+4, "    > Abstract: ")
         call append(line(".")+5, " ************************************************************************/")
@@ -170,13 +182,10 @@ nnoremap <C-F2> :vert diffsplit
 map <M-F2> :tabnew<CR>
 "列出当前目录文件
 map <F3> :tabnew .<CR>
-
 "打开树状文件目录
-
 map <C-F3> \be
 
 "C，C++ 按F5编译运行
-
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
@@ -195,15 +204,12 @@ func! CompileRunGcc()
 endfunc
 
 "C,C++的调试
-
 map <F8> :call Rungdb()<CR>
-
 func! Rungdb()
     exec "w"
     exec "!g++ % -g -o %<"
     exec "!gdb ./%<"
 endfunc
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""实用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,8 +218,6 @@ set ruler                   " 打开状态栏标尺
 ""显示的背景色:black, brown, grey, blue, green, cyan, magenta, yellow, white
 ""set cursorline              " 突出显示当前行
 ""hi CursorLine   cterm=NONE ctermbg=yellow ctermfg=green guibg=darkred guifg=white
-
-
 ""set cursorcolumn            " 突出显示当前列
 ""hi CursorColumn cterm=NONE ctermbg=yellow ctermfg=green guibg=darkred guifg=white
 set magic                   " 设置魔术
@@ -633,6 +637,13 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 Plugin 'Tagbar'
 Plugin 'godlygeek/tabular'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" markdown
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	
+let g:mkdp_path_to_chrome = "open -a Google\\ Chrome"
+Plugin 'iamcco/markdown-preview.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
 " All of your Plugins must be added before the following line
